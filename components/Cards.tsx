@@ -7,12 +7,15 @@ interface props {
 }
 const Cards: NextPage<props> = ({ cards }) => {
 
-  return (<div className="p-2 grid grid-cols-3 gap-3">
-    {cards.map((card) => {
-      return <Card card={card} key={card.id} />
-    })}
-
-  </div>)
+  return (
+    <div className="min-h-screen flex justify-center">
+      <div className="p-2 grid grid-cols-4 gap-4">
+        {cards.map((card) => {
+          return <Card card={card} key={card.id} />
+        })}
+      </div>
+    </div>
+  )
 }
 
 export default Cards;

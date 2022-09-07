@@ -9,7 +9,7 @@ const FakeCardAPI = (): ICard[] => {
         {
           id: '1',
           card_id: '1',
-          title: 'life in the built environment chapter 2',
+          title: 'life in the built environment chapter 2 and the text is actually long',
           description: 'homework due'
         },
         {
@@ -25,13 +25,13 @@ const FakeCardAPI = (): ICard[] => {
       header: "Job Tasks",
       list: [
         {
-          id: '1',
+          id: '3',
           card_id: '2',
           title: 'Company A',
           description: 'interview due'
         },
         {
-          id: '2',
+          id: '4',
           card_id: '2',
           title: 'Company B',
           description: 'interview not due'
@@ -39,33 +39,33 @@ const FakeCardAPI = (): ICard[] => {
       ]
     },
     {
-      id: '2',
+      id: '3',
       header: "Random Task",
       list: [
         {
-          id: '2',
-          card_id: '2',
+          id: '5',
+          card_id: '3',
           description: 'Company B',
         },
         {
-          id: '2',
-          card_id: '2',
+          id: '6',
+          card_id: '3',
           description: 'Company B',
         },
       ]
     }, 
 
     {
-      id: '2',
+      id: '4',
       header: "Random Task",
       list: [
         {
-          id: '2',
+          id: '7',
           card_id: '2',
           description: 'Company B',
         },
         {
-          id: '2',
+          id: '8',
           card_id: '2',
           description: 'Company B',
         },
@@ -73,16 +73,16 @@ const FakeCardAPI = (): ICard[] => {
     },
 
     {
-      id: '2',
+      id: '5',
       header: "Random Task",
       list: [
         {
-          id: '2',
+          id: '9',
           card_id: '2',
           description: 'Company B',
         },
         {
-          id: '2',
+          id: '10',
           card_id: '2',
           description: 'Company B',
         },
