@@ -1,12 +1,14 @@
 import type { NextPage } from 'next';
-import {ISingleList} from '../interfaces/ICard'
-import { AiFillCaretDown } from "react-icons/ai";
+import SingleListDropDownMenu from './SingleListDropDownMenu';
+import { ISingleList } from '../interfaces/ICard'
 
 interface props {
   task: ISingleList;
-
 }
+
+
 const SingleList: NextPage<props> = ({ task }) => {
+
   return (<>
     <li className="py-3 sm:py-4">
       <div className="flex items-center space-x-4">
@@ -21,10 +23,11 @@ const SingleList: NextPage<props> = ({ task }) => {
           </p>
         </div>
         <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-          <button><AiFillCaretDown/></button>
+          <SingleListDropDownMenu />
         </div>
       </div>
     </li>
   </>)
+
 }
 export default SingleList;
