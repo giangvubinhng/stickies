@@ -1,5 +1,8 @@
 import {ICard} from '../interfaces/ICard';
+import localStorageService from './localStorage.service';
 
+// Constants
+const LOCAL_KEY_ITEM_NOTES = "stickieNoteItems"
 const FakeCardAPI = (): ICard[] => {
   const fakecards: ICard[] = [
     {
@@ -91,7 +94,18 @@ const FakeCardAPI = (): ICard[] => {
   ]
   return fakecards;
 }
+function getCardLocal(): ICard[]{
+  return localStorageService.getItem(LOCAL_KEY_ITEM_NOTES);
+
+
+}
+function setCardLocal(newValues: ICard[]): void{
+  localStorageService.setItem(LOCAL_KEY_ITEM_NOTES, newValues)
+}
+
 
 export {
-  FakeCardAPI
+  FakeCardAPI,
+  getCardLocal,
+  setCardLocal
 }

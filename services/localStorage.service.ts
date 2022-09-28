@@ -18,6 +18,7 @@ const setItem = (key: string, value: any) => {
 const removeItem = (key: string) => {
 	window.localStorage.removeItem(key);
 };
+const localStorageService = {removeItem, getItem, setItem};
 
-export default {removeItem, getItem, setItem}
+export default localStorageService;
 
