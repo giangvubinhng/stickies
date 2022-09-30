@@ -96,8 +96,6 @@ const FakeCardAPI = (): ICard[] => {
 }
 function getCardLocal(): ICard[]{
   return localStorageService.getItem(LOCAL_KEY_ITEM_NOTES);
-
-
 }
 function setCardLocal(newValues: ICard[]): void{
   localStorageService.setItem(LOCAL_KEY_ITEM_NOTES, newValues)
