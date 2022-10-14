@@ -1,7 +1,8 @@
-import {ICard} from '../interfaces/ICard';
+import { ICard } from '../interfaces/ICard';
 import localStorageService from './localStorage.service';
 
 // Constants
+
 const LOCAL_KEY_ITEM_NOTES = "stickieNoteItems"
 const FakeCardAPI = (): ICard[] => {
   const fakecards: ICard[] = [
@@ -56,7 +57,7 @@ const FakeCardAPI = (): ICard[] => {
           description: 'Company B',
         },
       ]
-    }, 
+    },
 
     {
       id: '4',
@@ -94,16 +95,44 @@ const FakeCardAPI = (): ICard[] => {
   ]
   return fakecards;
 }
-function getCardLocal(): ICard[]{
-  return localStorageService.getItem(LOCAL_KEY_ITEM_NOTES);
+function getCardLocal(): ICard[] {
+  return localStorageService.getItem(LOCAL_KEY_ITEM_NOTES || []);
 }
-function setCardLocal(newValues: ICard[]): void{
+function setCardLocal(newValues: ICard[]): void {
   localStorageService.setItem(LOCAL_KEY_ITEM_NOTES, newValues)
 }
-
-
-export {
-  FakeCardAPI,
-  getCardLocal,
-  setCardLocal
+function addCardLocal(newItem: ICard): ICard[] {
+  const cards = getCardLocal();
+  const updatedCards = [...cards, newItem]
+  setCardLocal(updatedCards)
+  return updatedCards;
 }
+function deleteCardLocal(id: number): ICard[] {
+  const cards = getCardLocal();
+  if (id > -1) { // only splice array when item is found
+    cards.splice(id, 1); // 2nd parameter means remove one item only
+  }
+  for (let i = id; i < cards.length; i++) {
+    cards[i].id = (parseInt(cards[i].id) - 1).toString()
+  }
+  setCardLocal(cards)
+  return cards;
+}
+function editCardLocal(id: number, updatedCard: ICard): ICard[] {
+  const cards = getCardLocal();
+  cards[id] = updatedCard
+  setCardLocal(cards)
+  return cards
+
+}
+
+const cardsService = {
+  getCardLocal,
+  setCardLocal,
+  FakeCardAPI,
+  addCardLocal,
+  deleteCardLocal,
+  editCardLocal
+}
+
+export default cardsService;
