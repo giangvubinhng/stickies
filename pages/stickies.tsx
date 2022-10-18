@@ -4,9 +4,11 @@ import RightFloatingBtn from '../components/RightFloatingBtn';
 import { useCardStore } from '../app/stores';
 import { useEffect, useState } from 'react';
 import {ICard} from '../interfaces/ICard'
+import AddCardModal from '../components/AddCardModal';
 
-const Stickies = () => {
+const Stickies: NextPage = () => {
   const [currCards, setCurrCards] = useState<ICard[]>([])
+  const [showModal, setShowModal] = useState(false)
   const cards: ICard[] = useCardStore((state) => state.cards);
   useEffect(
     () => {
@@ -16,8 +18,10 @@ const Stickies = () => {
   return (
     <div>
       <Cards cards={currCards}/>
-      <RightFloatingBtn/>
-    </div>)
+      { showModal && <AddCardModal setShowModal={(e) => setShowModal(e)}/> }
+      <RightFloatingBtn onClick={() => setShowModal(true)}/>
+    </div>
+  )
 }
 
 export default Stickies;

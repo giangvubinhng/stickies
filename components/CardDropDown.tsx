@@ -16,7 +16,7 @@ const CardDropDownMenu: NextPage<props> = (props) => {
       {
         type: 'button',
         action: props.handleAddTask,
-        value: "Add A Task"
+        value: "Edit"
       }
       const deleteFunc: IDropDownMenuItem =
       {
