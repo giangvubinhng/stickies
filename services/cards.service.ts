@@ -27,9 +27,10 @@ function addEmptyCardLocal(): ICard[] {
 }
 function deleteCardLocal(id: number): ICard[] {
   const cards = getCardLocal();
-  if (id > -1) { // only splice array when item is found
-    cards.splice(id, 1); // 2nd parameter means remove one item only
-    for (let i = id; i < cards.length; i++) {
+  if (id > 0) { // only splice array when item is found
+    const index = id - 1;
+    cards.splice(index, 1); // 2nd parameter means remove one item only
+    for (let i = index; i < cards.length; i++) {
       cards[i].id = (parseInt(cards[i].id) - 1).toString()
     }
   }

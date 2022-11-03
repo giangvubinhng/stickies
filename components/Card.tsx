@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import { useCallback } from 'react';
 import SingleList from './SingleList';
 import { ICard } from '../interfaces/ICard';
 import { useCardStore } from '../app/stores';
@@ -10,8 +9,7 @@ interface props {
 }
 const Card: NextPage<props> = ({ card }) => {
 
-  const handleCardDelete = useCallback(useCardStore((state) => state.deleteCardLocal), [])
-  const handleAddTask = useCallback(useCardStore((state) => state.addTaskToCard), [])
+  const handleCardDelete = useCardStore((state) => state.deleteCardLocal)
 
   return (
     <div className="p-4 w-full max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -21,7 +19,6 @@ const Card: NextPage<props> = ({ card }) => {
             {card.header}
           </h5>
           <CardDropDownMenu
-            handleAddTask={() => handleAddTask(card.id)}
             handleDeleteCard={() => handleCardDelete(parseInt(card.id))} />
         </>
       </div>
