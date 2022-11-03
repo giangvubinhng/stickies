@@ -1,17 +1,14 @@
 import create from 'zustand'
-import {persist, devtools} from 'zustand/middleware'
+import { persist, devtools } from 'zustand/middleware'
 import cardsService from '../services/cards.service'
-import { ICard, ISingleList } from '../interfaces/ICard'
+import { ICard, ICardInput } from '../interfaces/ICard'
 
 
 interface CardState {
   cards: ICard[],
   updateCardsLocal: (newCards: ICard[]) => void,
-  addCardLocal: (newItem: ICard) => void,
-  addEmptyCardLocal: () => void,
+  addCardLocal: (newItem: ICardInput) => void,
   deleteCardLocal: (id: number) => void,
-  editCardLocal: (id: number, updatecard: ICard) => void,
-  addTaskToCard: (card_id: string) => void
 
 }
 
@@ -26,14 +23,8 @@ const useCardStore = create<CardState>()(
             cards: newCards
           }))
         },
-        addCardLocal: (newItem: ICard) => {
+        addCardLocal: (newItem: ICardInput) => {
           const updatedCards = cardsService.addCardLocal(newItem)
-          return set(() => ({
-            cards: updatedCards
-          }))
-        },
-        addEmptyCardLocal() {
-          const updatedCards = cardsService.addEmptyCardLocal()
           return set(() => ({
             cards: updatedCards
           }))
@@ -43,20 +34,7 @@ const useCardStore = create<CardState>()(
           return set(() => ({
             cards: updatedCards
           }))
-            
-        },
-        editCardLocal(id: number, updatecard: ICard) {
-          const updatedCards = cardsService.editCardLocal(id, updatecard)
-          return set(() => ({
-            cards: updatedCards
-          }))
-        },
-        addTaskToCard(card_id: string) {
-          const updatedCards = cardsService.addTaskToCard(card_id);
-          return set(() => ({
-            cards: updatedCards
-          }))
-            
+
         },
       }),
       {

@@ -11,3 +11,12 @@ export interface ISingleList{
   title?: string;
   description?: string;
 }
+
+export interface ITaskInput {
+  title: string;
+  description?: string;
+}
+export interface ICardInput {
+  header: string;
+  list: ITaskInput[]
+}

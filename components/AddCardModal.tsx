@@ -3,24 +3,15 @@ import { useState } from 'react';
 import { VscNewFile } from 'react-icons/vsc'
 
 import { useCardStore } from '../app/stores'
-import { ICard, ISingleList } from '../interfaces/ICard'
+import { ICardInput } from '../interfaces/ICard'
 
 interface props {
   setShowModal: (show: boolean) => void;
-}
-interface ITaskInput {
-  title: string;
-  description?: string;
-}
-interface ICardInput {
-  header: string;
-  list: ITaskInput[]
 }
 
 
 const AddCardModal: NextPage<props> = ({ setShowModal }) => {
 
-  const cardList = useCardStore((state) => state.cards)
   const addCardToStore = useCardStore((state) => state.addCardLocal)
 
   const [task, setTask] = useState<ICardInput>({ header: '', list: new Array() })
@@ -54,24 +45,7 @@ const AddCardModal: NextPage<props> = ({ setShowModal }) => {
 
   const handleSubmit = () => {
 
-    const newCardId = (cardList.length + 1).toString()
-    const mappedCard: ICard = { id: newCardId, list: [] };
-    const tempCard = task
-
-    const cardListWithId: ISingleList[] = tempCard.list.map((e: ITaskInput, i: number) => {
-      const anObj: ISingleList = {
-        id: i.toString(),
-        card_id: newCardId,
-        title: e.title,
-        description: e.description
-      }
-      return anObj
-
-    })
-
-    mappedCard.header = tempCard.header;
-    mappedCard.list = cardListWithId
-    addCardToStore(mappedCard)
+    addCardToStore(task)
 
     setTask({ header: '', list: new Array() })
     setShowModal(false)

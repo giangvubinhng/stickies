@@ -1,4 +1,4 @@
-import { ICard, ISingleList } from '../interfaces/ICard';
+import { ICard, ISingleList, ICardInput, ITaskInput } from '../interfaces/ICard';
 import localStorageService from './localStorage.service';
 
 // Constants
@@ -10,20 +10,27 @@ function getCardLocal(): ICard[] {
 function setCardLocal(newValues: ICard[]): void {
   localStorageService.setItem(LOCAL_KEY_ITEM_NOTES, newValues)
 }
-function addCardLocal(newItem: ICard): ICard[] {
+function addCardLocal(newItem: ICardInput): ICard[] {
   const cards = getCardLocal();
-  const updatedCards = [...cards, newItem]
-  return updatedCards;
-}
-function addEmptyCardLocal(): ICard[] {
-  const newId = getCardLocal().length
-  const emptyCard = 
-    {
-      id: newId.toString(),
-      header: "new header",
-      list: []
+  const newCardId = (cards.length + 1).toString()
+
+  const mappedCard: ICard = { id: newCardId, list: [] };
+
+  const taskListWithId: ISingleList[] = newItem.list.map((e: ITaskInput, i: number) => {
+    const anObj: ISingleList = {
+      id: i.toString(),
+      card_id: newCardId,
+      title: e.title,
+      description: e.description
     }
-  return addCardLocal(emptyCard)
+    return anObj
+
+  })
+
+  mappedCard.header = newItem.header;
+  mappedCard.list = taskListWithId
+  const updatedCards = [...cards, mappedCard]
+  return updatedCards;
 }
 function deleteCardLocal(id: number): ICard[] {
   const cards = getCardLocal();
@@ -36,27 +43,6 @@ function deleteCardLocal(id: number): ICard[] {
   }
   return cards;
 }
-function editCardLocal(id: number, updatedCard: ICard): ICard[] {
-  const cards = getCardLocal();
-  cards[id] = updatedCard
-  return cards
-}
-function addTaskToCard(card_id: string){
-  const cards = getCardLocal();
-  const card = cards.length > 0 ? cards[parseInt(card_id)] : undefined
-  if(card){
-    const newId = card.list.length
-    const emptyList: ISingleList = {
-      id: newId.toString(),
-      card_id: card.id,
-      title: "New task",
-      description: "task Description"
-    }
-    card.list.push(emptyList)
-    return cards
-  }
-
-}
 
 const cardsService = {
   LOCAL_KEY_ITEM_NOTES,
@@ -64,9 +50,6 @@ const cardsService = {
   setCardLocal,
   addCardLocal,
   deleteCardLocal,
-  editCardLocal,
-  addEmptyCardLocal,
-  addTaskToCard
 }
 
 export default cardsService;
