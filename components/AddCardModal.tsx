@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import { VscNewFile } from 'react-icons/vsc'
+import { TiDelete } from 'react-icons/ti'
 
 import { useCardStore } from '../app/stores'
 import { ICardInput } from '../interfaces/ICard'
@@ -24,6 +25,13 @@ const AddCardModal: NextPage<props> = ({ setShowModal, currentCard, cardId }) =>
   const handleAddTask = () => {
     task.list.push({ title: '', description: '' })
     setTask({ ...task })
+  }
+
+  const handleRemoveSingleTask = (ind: number) => {
+    if (ind > -1) { // only splice array when item is found
+      task.list.splice(ind, 1); // 2nd parameter means remove one item only
+      setTask({ ...task })
+    }
   }
 
   // handle input change
@@ -87,6 +95,7 @@ const AddCardModal: NextPage<props> = ({ setShowModal, currentCard, cardId }) =>
                 </p>
                 {task.list.map((elem: any, ind: number) => {
                   return (<div className="w-full max-w-sm border-b-2 mt-2" key={ind} data-key={ind}>
+                    <button onClick={() => handleRemoveSingleTask(ind)}><TiDelete /></button>
                     <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-2" id={"title" + ind} name="title" type="text" value={elem.title} onChange={handleInputChange} placeholder="Task Name" />
                     <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-2" id={"description" + ind} type="text" name="description" value={elem.description} onChange={handleInputChange} placeholder="Description (optional)" />
                   </div>)

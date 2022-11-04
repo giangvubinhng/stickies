@@ -47,6 +47,8 @@ function deleteCardLocal(card_id: string): ICard[] {
   if (id > 0) { // only splice array when item is found
     const index = id - 1;
     cards.splice(index, 1); // 2nd parameter means remove one item only
+
+    // Set id for data after
     for (let i = index; i < cards.length; i++) {
       cards[i].id = (parseInt(cards[i].id) - 1).toString()
     }
@@ -61,7 +63,7 @@ function updateCardLocal(newItem: ICardInput, id: string): ICard[] {
   const cardIndx = parseInt(id) - 1;
 
 
-  // Generate new list of task correspond to the card
+  // Generate new list of tasks correspond to the card
   const taskListWithId: ISingleList[] = newItem.list.map((e: ITaskInput, i: number) => {
     const anObj: ISingleList = {
       id: i.toString(),
