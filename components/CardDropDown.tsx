@@ -6,6 +6,7 @@ import DropDown from './DropDown';
 interface props {
 
   handleDeleteCard: () => void;
+  handleEditCard: () => void;
 
 }
 const CardDropDownMenu: NextPage<props> = (props) => {
@@ -14,7 +15,7 @@ const CardDropDownMenu: NextPage<props> = (props) => {
       const edit: IDropDownMenuItem =
       {
         type: 'button',
-        action: () => { console.log("edit") },
+        action: props.handleEditCard,
         value: "Edit"
       }
       const deleteFunc: IDropDownMenuItem =

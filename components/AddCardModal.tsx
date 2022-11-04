@@ -7,20 +7,26 @@ import { ICardInput } from '../interfaces/ICard'
 
 interface props {
   setShowModal: (show: boolean) => void;
+  currentCard?: ICardInput;
+  cardId?: string
 }
 
 
-const AddCardModal: NextPage<props> = ({ setShowModal }) => {
+const AddCardModal: NextPage<props> = ({ setShowModal, currentCard, cardId }) => {
 
-  const addCardToStore = useCardStore((state) => state.addCardLocal)
+  // Initial AddFunc from CardStore
+  const addOrUpdateCard = useCardStore((state) => state.addOrUpdateCardLocal)
 
-  const [task, setTask] = useState<ICardInput>({ header: '', list: new Array() })
+  // Initialize TaskInput
+  const [task, setTask] = useState<ICardInput>(currentCard || { header: '', list: new Array() })
 
+  // handle when the add new task button is clicked
   const handleAddTask = () => {
     task.list.push({ title: '', description: '' })
     setTask({ ...task })
   }
 
+  // handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement
     if (target.name === "header") {
@@ -43,14 +49,18 @@ const AddCardModal: NextPage<props> = ({ setShowModal }) => {
 
   }
 
+  // Handle when user clicks submit
   const handleSubmit = () => {
-
-    addCardToStore(task)
-
-    setTask({ header: '', list: new Array() })
-    setShowModal(false)
+    if (cardId) {
+      addOrUpdateCard(task, cardId)
+    }
+    else {
+      addOrUpdateCard(task)
+    }
+    handleCancel()
   }
 
+  // Handle when user clicks cancel
   const handleCancel = () => {
     setTask({ header: '', list: new Array() })
     setShowModal(false)
@@ -60,7 +70,7 @@ const AddCardModal: NextPage<props> = ({ setShowModal }) => {
       <div className="fixed inset-0 z-10 overflow-y-auto">
         <div
           className="fixed inset-0 w-full h-full bg-black opacity-40"
-          onClick={() => setShowModal(false)}
+          onClick={handleCancel}
         ></div>
         <div className="flex items-center min-h-screen px-4 py-8">
           <div className="relative w-full max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg">

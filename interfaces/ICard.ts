@@ -1,3 +1,4 @@
+// Response from server ---------
 export interface ICard{
   id: string;
   header?: string;
@@ -12,10 +13,12 @@ export interface ISingleList{
   description?: string;
 }
 
+// Input request ------
 export interface ITaskInput {
   title: string;
   description?: string;
 }
+
 export interface ICardInput {
   header: string;
   list: ITaskInput[]

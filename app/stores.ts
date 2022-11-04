@@ -7,8 +7,8 @@ import { ICard, ICardInput } from '../interfaces/ICard'
 interface CardState {
   cards: ICard[],
   updateCardsLocal: (newCards: ICard[]) => void,
-  addCardLocal: (newItem: ICardInput) => void,
-  deleteCardLocal: (id: number) => void,
+  addOrUpdateCardLocal: (newItem: ICardInput, id?: string) => void,
+  deleteCardLocal: (id: string) => void,
 
 }
 
@@ -23,13 +23,19 @@ const useCardStore = create<CardState>()(
             cards: newCards
           }))
         },
-        addCardLocal: (newItem: ICardInput) => {
-          const updatedCards = cardsService.addCardLocal(newItem)
+        addOrUpdateCardLocal: (newItem: ICardInput, id?: string) => {
+          let updatedCards: ICard[];
+          if (id) {
+            updatedCards = cardsService.updateCardLocal(newItem, id)
+          }
+          else {
+            updatedCards = cardsService.addCardLocal(newItem)
+          }
           return set(() => ({
             cards: updatedCards
           }))
         },
-        deleteCardLocal(id: number) {
+        deleteCardLocal(id: string) {
           const updatedCards = cardsService.deleteCardLocal(id)
           return set(() => ({
             cards: updatedCards
