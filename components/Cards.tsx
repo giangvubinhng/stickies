@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
-import Card from '../components/Card';
-import { ICard } from '../interfaces/ICard';
+import Card from '@/components/Card';
+import { ICard } from '@/interfaces/ICard';
 
 interface props {
   cards: ICard[];

@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { VscNewFile } from 'react-icons/vsc'
 import { TiDelete } from 'react-icons/ti'
 
-import { useCardStore } from '../app/stores'
-import { ICardInput } from '../interfaces/ICard'
+import { useCardStore } from '@/app/stores'
+import { ICardInput } from '@/interfaces/ICard'
 
 interface props {
   setShowModal: (show: boolean) => void;

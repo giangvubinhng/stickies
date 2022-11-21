@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { Menu, Transition } from '@headlessui/react';
 import { forwardRef } from 'react'
-import {IDropDownSection as section} from '../interfaces/IDropDownMenu'
+import {IDropDownSection as section} from '@/interfaces/IDropDownMenu'
 import Link from 'next/link'
 
 interface props {

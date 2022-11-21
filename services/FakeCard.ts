@@ -1,4 +1,4 @@
-import { ICard } from "../interfaces/ICard";
+import { ICard } from "@/interfaces/ICard";
 const FakeCard = (): ICard[] => {
   const fakecards: ICard[] = [
     {

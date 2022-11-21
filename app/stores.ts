@@ -1,7 +1,7 @@
 import create from 'zustand'
 import { persist, devtools } from 'zustand/middleware'
-import cardsService from '../services/cards.service'
-import { ICard, ICardInput } from '../interfaces/ICard'
+import cardsService from '@/services/cards.service'
+import { ICard, ICardInput } from '@/interfaces/ICard'
 
 
 interface CardState {

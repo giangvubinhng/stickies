@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { useState } from 'react'
 import SingleList from './SingleList';
-import { ICard, ICardInput } from '../interfaces/ICard';
-import { useCardStore } from '../app/stores';
+import { ICard, ICardInput } from '@/interfaces/ICard';
+import { useCardStore } from '@/app/stores';
 import AddCardModal from './AddCardModal';
 import CardDropDownMenu from './CardDropDown';
 interface props {

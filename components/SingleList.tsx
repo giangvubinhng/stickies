@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { ISingleList } from '../interfaces/ICard'
+import { ISingleList } from '@/interfaces/ICard'
 
 interface props {
   task: ISingleList;

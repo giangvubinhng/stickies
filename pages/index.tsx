@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '@/styles/Home.module.css'
 
 const Home: NextPage = () => {
   return (
@@ -15,7 +15,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          <a>Stickies, not your simple to-do app</a>
+          <a>Stickies, Simple and Blazing Fast Sticky Notes</a>
         </h1>
 
         <p className={styles.description}>

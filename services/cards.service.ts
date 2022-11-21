@@ -1,4 +1,4 @@
-import { ICard, ISingleList, ICardInput, ITaskInput } from '../interfaces/ICard';
+import { ICard, ISingleList, ICardInput, ITaskInput } from '@/interfaces/ICard';
 import localStorageService from './localStorage.service';
 
 // Constants

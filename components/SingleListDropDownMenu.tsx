@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useMemo } from 'react'
-import { IDropDownSection, IDropDownMenuItem } from '../interfaces/IDropDownMenu'
+import { IDropDownSection, IDropDownMenuItem } from '@/interfaces/IDropDownMenu'
 import DropDown from './DropDown';
 
 interface props {
