@@ -1,5 +1,6 @@
 import { ICard, ISingleList, ICardInput, ITaskInput } from '@/interfaces/ICard';
 import localStorageService from './localStorage.service';
+import axios from 'axios';
 
 // Constants
 const LOCAL_KEY_ITEM_NOTES = "stickieNoteItems"
@@ -82,13 +83,25 @@ function updateCardLocal(newItem: ICardInput, id: string): ICard[] {
 
 }
 
+async function addCardAsync(newItem: ICardInput) {
+  const result = await axios.post('/api/card', newItem);
+  return result.data;
+}
+
+async function updateCardAsync(newItem: ICardInput, id: string) {
+  const result = await axios.put(`/api/card/${id}`, newItem);
+  return result.data;
+}
+
 const cardsService = {
   LOCAL_KEY_ITEM_NOTES,
   getCardLocal,
   setCardLocal,
   addCardLocal,
   deleteCardLocal,
-  updateCardLocal
+  updateCardLocal,
+  addCardAsync,
+  updateCardAsync
 }
 
 export default cardsService;

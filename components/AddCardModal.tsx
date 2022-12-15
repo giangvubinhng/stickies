@@ -10,10 +10,12 @@ interface props {
   setShowModal: (show: boolean) => void;
   currentCard?: ICardInput;
   cardId?: string
+  addCardAsync: (task: ICardInput) => void;
+  updateCardAsync: ({ }) => void;
 }
 
 
-const AddCardModal: NextPage<props> = ({ setShowModal, currentCard, cardId }) => {
+const AddCardModal: NextPage<props> = ({ setShowModal, currentCard, cardId, addCardAsync, updateCardAsync }) => {
 
   // Initial AddFunc from CardStore
   const addOrUpdateCard = useCardStore((state) => state.addOrUpdateCardLocal)
@@ -57,8 +59,18 @@ const AddCardModal: NextPage<props> = ({ setShowModal, currentCard, cardId }) =>
 
   }
 
+  const handleSubmitAsync = () => {
+    if (cardId) {
+      updateCardAsync({ card: task, id: cardId })
+    }
+    else {
+      addCardAsync(task)
+    }
+  }
+
+
   // Handle when user clicks submit
-  const handleSubmit = () => {
+  const handleSubmitLocal = () => {
     if (cardId) {
       addOrUpdateCard(task, cardId)
     }
@@ -104,7 +116,7 @@ const AddCardModal: NextPage<props> = ({ setShowModal, currentCard, cardId }) =>
                 <div className="items-center gap-2 mt-3 sm:flex">
                   <button
                     className="w-full mt-2 p-2.5 flex-1 text-white bg-gray-600 rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
-                    onClick={handleSubmit}
+                    onClick={handleSubmitLocal}
                   >
                     Submit
                   </button>
