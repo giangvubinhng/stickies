@@ -49,18 +49,19 @@ const Stickies: NextPage<props> = ({ result }) => {
     }
 
   }
-  const updateCardAsync = async (obj: any) => {
-    const data = await cardsService.updateCardAsync(obj.card as ICardInput, obj.id as string)
-    if (data.success) {
 
-      currCards.forEach((x) => {
-        if (x.id === data.data.id) {
-          x = data.data
+  const updateCardAsync = async (obj: any) => {
+    const data = await cardsService.updateCardAsync(obj.card, obj.id);
+    if (data.success) {
+      currCards.forEach((card) => {
+        if(card.id == data.data.id){
+          card = data.data
         }
       })
       setCurrCards(currCards)
 
     }
+
   }
   useEffect(
     () => {
@@ -72,10 +73,11 @@ const Stickies: NextPage<props> = ({ result }) => {
       }
     }, [cards, result?.data, result?.success]
   )
+
   return (
     <div>
-      <Cards cards={currCards} />
-      {showModal && <AddCardModal setShowModal={(e) => setShowModal(e)} updateCardAsync={updateCardAsync} addCardAsync={addCardAsync} />}
+      <Cards cards={currCards} updateCardAsyncProp={updateCardAsync}/>
+      {showModal && <AddCardModal setShowModal={(e) => setShowModal(e)} addCardAsync={addCardAsync} />}
       <RightFloatingBtn onClick={() => setShowModal(true)} />
     </div>
   )

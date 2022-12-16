@@ -2,13 +2,13 @@
 export interface ICard{
   id: string;
   header?: string;
-  list: ISingleList[];
+  tasks: ISingleList[];
 
 }
 
 export interface ISingleList{
   id: string;
-  card_id: string;
+  cardId: string;
   title?: string;
   description?: string;
 }
@@ -21,5 +21,5 @@ export interface ITaskInput {
 
 export interface ICardInput {
   header: string;
-  list: ITaskInput[]
+  tasks: ITaskInput[]
 }

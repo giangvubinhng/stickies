@@ -21,13 +21,13 @@ function addCardLocal(newItem: ICardInput): ICard[] {
   const newCardId = (currentCardList.length + 1).toString()
 
   // Create a new Card Object
-  const mappedCard: ICard = { id: newCardId, list: [] };
+  const mappedCard: ICard = { id: newCardId, tasks: [] };
 
   // Generate list of task correspond to the card
-  const taskListWithId: ISingleList[] = newItem.list.map((e: ITaskInput, i: number) => {
+  const taskListWithId: ISingleList[] = newItem.tasks.map((e: ITaskInput, i: number) => {
     const anObj: ISingleList = {
       id: i.toString(),
-      card_id: newCardId,
+      cardId: newCardId,
       title: e.title,
       description: e.description
     }
@@ -37,7 +37,7 @@ function addCardLocal(newItem: ICardInput): ICard[] {
 
   // Finalize the card and update the list
   mappedCard.header = newItem.header;
-  mappedCard.list = taskListWithId
+  mappedCard.tasks = taskListWithId
   const updatedCards = [...currentCardList, mappedCard]
   return updatedCards;
 }
@@ -65,10 +65,10 @@ function updateCardLocal(newItem: ICardInput, id: string): ICard[] {
 
 
   // Generate new list of tasks correspond to the card
-  const taskListWithId: ISingleList[] = newItem.list.map((e: ITaskInput, i: number) => {
+  const taskListWithId: ISingleList[] = newItem.tasks.map((e: ITaskInput, i: number) => {
     const anObj: ISingleList = {
       id: i.toString(),
-      card_id: id,
+      cardId: id,
       title: e.title,
       description: e.description
     }
@@ -78,20 +78,21 @@ function updateCardLocal(newItem: ICardInput, id: string): ICard[] {
 
   // Finalize the card and update the list
   currentCardList[cardIndx].header = newItem.header;
-  currentCardList[cardIndx].list = taskListWithId
+  currentCardList[cardIndx].tasks = taskListWithId
   return currentCardList;
 
 }
 
 async function addCardAsync(newItem: ICardInput) {
-  const result = await axios.post('/api/card', newItem);
+  const result = await axios.post('/api/card', newItem, { withCredentials: true });
   return result.data;
 }
 
 async function updateCardAsync(newItem: ICardInput, id: string) {
-  const result = await axios.put(`/api/card/${id}`, newItem);
+  const result = await axios.put(`/api/card/${id}`, newItem, {withCredentials: true});
   return result.data;
 }
+
 
 const cardsService = {
   LOCAL_KEY_ITEM_NOTES,
