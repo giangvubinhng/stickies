@@ -181,8 +181,8 @@ async function create(user_email: string | null | undefined, original_card: ICar
 }
 
 async function edit(req_card: ICard, card_id: string) {
-  
-  try{
+
+  try {
 
     // update card
     const updatedCard = await prisma.card.update({
@@ -250,24 +250,53 @@ async function edit(req_card: ICard, card_id: string) {
 
     const data = mapToServerResponse(updatedCard, updatedTasks);
 
-    return {data: data, success: true, message: "Card updated successfully"};
+    return { data: data, success: true, message: "Card updated successfully" };
 
   }
-  catch(e: unknown){
-      if (e instanceof Error) {
-        return {
-          message: `An error occurred: ${e.message}`,
-          success: false
-        }
+  catch (e: unknown) {
+    if (e instanceof Error) {
+      return {
+        message: `An error occurred: ${e.message}`,
+        success: false
       }
-      else {
-        return {
-          message: `An unexpected error occurred`,
-          success: false
-        }
+    }
+    else {
+      return {
+        message: `An unexpected error occurred`,
+        success: false
       }
+    }
 
   }
+}
+
+async function removeCard(card_id: string) {
+  try {
+    const result = await prisma.card.delete({
+      where: {
+        id: card_id
+      }
+    })
+    return {
+      message: `Deleted successfully`,
+      success: true,
+      data: result
+    }
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      return {
+        message: `An error occurred: ${e.message}`,
+        success: false
+      }
+    }
+    else {
+      return {
+        message: `An unexpected error occurred`,
+        success: false
+      }
+    }
+  }
+
 }
 
 function mapToServerResponse(card: Card, tasks: Task[]): ICard {
@@ -293,7 +322,8 @@ const cardApiService = {
   findCardById,
   findCardsByUserId,
   create,
-  edit
+  edit,
+  removeCard
 }
 
 

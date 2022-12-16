@@ -89,7 +89,12 @@ async function addCardAsync(newItem: ICardInput) {
 }
 
 async function updateCardAsync(newItem: ICardInput, id: string) {
-  const result = await axios.put(`/api/card/${id}`, newItem, {withCredentials: true});
+  const result = await axios.put(`/api/card/${id}`, newItem, { withCredentials: true });
+  return result.data;
+}
+
+async function deleteCardAsync(id: string) {
+  const result = await axios.delete(`/api/card/${id}`, { withCredentials: true });
   return result.data;
 }
 
@@ -102,7 +107,8 @@ const cardsService = {
   deleteCardLocal,
   updateCardLocal,
   addCardAsync,
-  updateCardAsync
+  updateCardAsync,
+  deleteCardAsync
 }
 
 export default cardsService;

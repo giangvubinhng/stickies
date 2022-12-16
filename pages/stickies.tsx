@@ -71,18 +71,30 @@ const Stickies: NextPage<props> = ({ result }) => {
   const updateCardAsync = async (obj: any) => {
     const data = await cardsService.updateCardAsync(obj.card, obj.id);
     if (data.success === true) {
-      currCards.forEach((card) => {
-        if (card.id == data.data.id) {
+      const updatedCardList = currCards.map((card) => {
+        if (card.id === data.data.id) {
           card = data.data
         }
+        return card
       })
-      setCurrCards(currCards)
+      setCurrCards(updatedCardList)
       toggleMessage(data.message, 'info')
     }
     else {
       toggleMessage(data.message, 'error')
     }
 
+
+  }
+  const deleteCardAsync = async (card_id: string) => {
+    const data = await cardsService.deleteCardAsync(card_id);
+    if (data.success === true) {
+      setCurrCards(currCards.filter((e) => e.id !== data.data.id))
+      toggleMessage(data.message, 'info')
+    }
+    else {
+      toggleMessage(data.message, 'error')
+    }
 
   }
   useEffect(
@@ -99,7 +111,7 @@ const Stickies: NextPage<props> = ({ result }) => {
   return (
     <div>
       {alertMessage.state && <AlertMessage type={alertMessage.type} message={alertMessage.message} />}
-      <Cards cards={currCards} updateCardAsyncProp={updateCardAsync} />
+      <Cards cards={currCards} updateCardAsyncProp={updateCardAsync} handleCardDeleteAsync={deleteCardAsync} />
       {showModal && <AddCardModal setShowModal={(e) => setShowModal(e)} addCardAsync={addCardAsync} />}
       <RightFloatingBtn onClick={() => setShowModal(true)} />
     </div>

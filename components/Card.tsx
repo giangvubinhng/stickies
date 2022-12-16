@@ -5,25 +5,35 @@ import { ICard, ICardInput } from '@/interfaces/ICard';
 import { useCardStore } from '@/app/stores';
 import AddCardModal from './AddCardModal';
 import CardDropDownMenu from './CardDropDown';
-import cardsService from '@/services/cards.service';
+import { useSession } from "next-auth/react"
 interface props {
   card: ICard;
   updateCardAsyncProp?: ({ }) => void;
-
+  handleCardDeleteAsync: (card_id: string) => void;
 }
-const Card: NextPage<props> = ({ card, updateCardAsyncProp }) => {
+const Card: NextPage<props> = ({ card, updateCardAsyncProp, handleCardDeleteAsync }) => {
 
-  const handleCardDelete = useCardStore((state) => state.deleteCardLocal)
+  const handleCardDeleteLocal = useCardStore((state) => state.deleteCardLocal)
+  const { status } = useSession()
   const [showModal, setShowModal] = useState(false);
   const updateCardAsync = (obj: any) => {
-    if(updateCardAsyncProp){
+    if (updateCardAsyncProp) {
       updateCardAsyncProp(obj)
     }
   }
+  const handleCardDelete = () => {
+    if (status === "authenticated") {
+      handleCardDeleteAsync(card.id)
+    }
+    else {
+      handleCardDeleteLocal(card.id)
+    }
+  }
+
 
   return (
     <>
-      {showModal && <AddCardModal setShowModal={(e) => setShowModal(e)} currentCard={card as ICardInput} cardId={card.id} updateCardAsync={updateCardAsync}/>}
+      {showModal && <AddCardModal setShowModal={(e) => setShowModal(e)} currentCard={card as ICardInput} cardId={card.id} updateCardAsync={updateCardAsync} />}
       <div className="p-4 w-full max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex justify-between items-center mb-4">
           <>
@@ -31,7 +41,7 @@ const Card: NextPage<props> = ({ card, updateCardAsyncProp }) => {
               {card.header}
             </h5>
             <CardDropDownMenu
-              handleDeleteCard={() => handleCardDelete(card.id)}
+              handleDeleteCard={() => handleCardDelete()}
               handleEditCard={() => setShowModal(!showModal)}
             />
           </>

@@ -28,14 +28,18 @@ const AddCardModal: NextPage<props> = ({ setShowModal, currentCard, cardId, addC
 
   // handle when the add new task button is clicked
   const handleAddTask = () => {
-    task.tasks.push({ title: '', description: '' })
-    setTask({ ...task })
+    setTask({
+      ...task,
+      tasks: [...task.tasks, { title: '', description: '' }]
+    })
   }
 
   const handleRemoveSingleTask = (ind: number) => {
     if (ind > -1) { // only splice array when item is found
-      task.tasks.splice(ind, 1); // 2nd parameter means remove one item only
-      setTask({ ...task })
+      setTask({
+        ...task,
+        tasks: task.tasks.filter((_, i) => i !== ind)
+      })
     }
   }
 

@@ -19,7 +19,10 @@ export default async function handler(
   else {
     if (req.method === Methods.PUT || req.method === Methods.POST) {
       const result = await cardApiService.edit(req.body, req.query.id as string)
-      console.log(result)
+      return res.json(result)
+    }
+    else if (req.method === Methods.DELETE) {
+      const result = await cardApiService.removeCard(req.query.id as string)
       return res.json(result)
     }
   }
