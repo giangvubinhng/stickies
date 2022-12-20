@@ -6,7 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate:dev": "yarn dotenv -e .env.local prisma migrate dev",
+    "db:push": "yarn dotenv -e .env.local --prisma db push",
+    "migrate:reset": "yarn dotenv -e .env.local -- prisma migrate reset",
+    "db:seed": "yarn dotenv -e .env.local -- prisma db seed",
+    "prisma:generate": "yarn dotenv -e .env.local  -- prisma generate",
+    "prisma:studio": "yarn dotenv -e .env.local -- prisma studio ",
+    "production:build": "yarn prisma generate && yarn prisma migrate deploy && next build"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.0",
@@ -28,6 +35,7 @@
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
     "autoprefixer": "^10.4.8",
+    "dotenv-cli": "^6.0.0",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5",
     "postcss": "^8.4.16",
