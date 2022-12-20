@@ -76,6 +76,9 @@ async function findCardsByUserId(user_id?: string) {
     const cards = await prisma.card.findMany({
       where: {
         userId: user_id
+      },
+      orderBy: {
+        index: 'asc'
       }
     })
     const convertedCards: ICard[] = [];
@@ -84,6 +87,9 @@ async function findCardsByUserId(user_id?: string) {
       const tasksList = await prisma.task.findMany({
         where: {
           cardId: card.id
+        },
+        orderBy: {
+          index: 'asc'
         }
       })
       const convertedCard = mapToServerResponse(card, tasksList)
@@ -136,6 +142,9 @@ async function create(user_email: string | null | undefined, original_card: ICar
         const tasksResult = await prisma.task.findMany({
           where: {
             cardId: cardResult.id
+          },
+          orderBy: {
+            index: 'asc'
           }
         })
 
@@ -209,7 +218,11 @@ async function edit(req_card: ICard, card_id: string) {
       where: {
         cardId: req_card.id
 
+      },
+      orderBy: {
+        index: 'asc'
       }
+
     })
 
     // Delete the ones not in the taskIdList
@@ -245,6 +258,9 @@ async function edit(req_card: ICard, card_id: string) {
     const updatedTasks = await prisma.task.findMany({
       where: {
         cardId: req_card.id
+      },
+      orderBy: {
+        index: 'asc'
       }
     })
 

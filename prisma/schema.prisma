@@ -62,6 +62,8 @@ model Card {
   tasks         Task[]
   userId        String
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime  @default(now())
+  index         Int       @unique @default(autoincrement())
   
 }
 
@@ -71,5 +73,7 @@ model Task {
   card          Card      @relation(fields: [cardId], references: [id], onDelete: Cascade)
   title         String?   
   description   String?
+  createdAt     DateTime  @default(now())
+  index         Int       @unique @default(autoincrement())
 
 }
