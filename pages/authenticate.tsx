@@ -9,7 +9,12 @@ const Authenticate = () => {
     return (
       <>
         <Head>
-          <title>Sign In</title>
+          <title>Authentication</title>
+          <meta
+            name="description"
+            content="Login to Worldowe Stickies to synchronize your notes."
+            key="desc"
+          />
         </Head>
         <div className="w-screen h-screen flex items-center justify-center">
           <button onClick={() => signOut()} type="button" className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
@@ -22,7 +27,12 @@ const Authenticate = () => {
   return (
     <>
       <Head>
-        <title>Sign In</title>
+        <title>Authentication</title>
+        <meta
+          name="description"
+          content="Login to Worldowe Stickies to synchronize your notes."
+          key="desc"
+        />
       </Head>
       <div className="w-screen h-screen flex items-center justify-center">
         <button onClick={() => signIn('google')} type="button" className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">

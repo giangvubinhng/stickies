@@ -6,8 +6,8 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Stickies</title>
-        <meta name="description" content="Simple, Blazing Fast Sticky Notes" />
+        <title>Worldowe Stickies</title>
+        <meta name="description" content="Simple and blazing fast note taking app that synchronize across your devices." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

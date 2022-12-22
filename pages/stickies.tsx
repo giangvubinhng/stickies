@@ -12,6 +12,7 @@ import cardApiService from '@/services/api/cardApi.service';
 import { ServerResponse } from '@/interfaces/api/IAPI';
 import cardsService from '@/services/cards.service';
 import AlertMessage from '@/components/AlertMessage';
+import Head from 'next/head';
 
 
 interface props {
@@ -109,12 +110,19 @@ const Stickies: NextPage<props> = ({ result }) => {
   )
 
   return (
-    <div>
-      {alertMessage.state && <AlertMessage type={alertMessage.type} message={alertMessage.message} />}
-      <Cards cards={currCards} updateCardAsyncProp={updateCardAsync} handleCardDeleteAsync={deleteCardAsync} />
-      {showModal && <AddCardModal setShowModal={(e) => setShowModal(e)} addCardAsync={addCardAsync} />}
-      <RightFloatingBtn onClick={() => setShowModal(true)} />
-    </div>
+    <>
+      <Head>
+        <title>Stickies</title>
+        <meta name="description" content="Simple and blazing fast note taking app that synchronize across your devices." />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div>
+        {alertMessage.state && <AlertMessage type={alertMessage.type} message={alertMessage.message} />}
+        <Cards cards={currCards} updateCardAsyncProp={updateCardAsync} handleCardDeleteAsync={deleteCardAsync} />
+        {showModal && <AddCardModal setShowModal={(e) => setShowModal(e)} addCardAsync={addCardAsync} />}
+        <RightFloatingBtn onClick={() => setShowModal(true)} />
+      </div>
+    </>
   )
 }
 
