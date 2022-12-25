@@ -52,15 +52,17 @@ const AddCardModal: NextPage<props> = ({ setShowModal, currentCard, cardId, addC
     else if (target.name == "title") {
       const key = (target.parentNode as HTMLElement).getAttribute("data-key")
       if (key) {
-        task.tasks[parseInt(key)].title = target.value
-        setTask({ ...task })
+        let newArr = [...task.tasks]
+        newArr[parseInt(key)].title = target.value
+        setTask({ ...task, tasks: newArr })
       }
     }
     else if (target.name == "description") {
       const key = (target.parentNode as HTMLElement).getAttribute("data-key")
       if (key) {
-        task.tasks[parseInt(key)].description = target.value
-        setTask({ ...task })
+        let newArr = [...task.tasks]
+        newArr[parseInt(key)].description = target.value
+        setTask({ ...task, tasks: newArr })
       }
     }
 

@@ -13,6 +13,7 @@ import { ServerResponse } from '@/interfaces/api/IAPI';
 import cardsService from '@/services/cards.service';
 import AlertMessage from '@/components/AlertMessage';
 import Head from 'next/head';
+import { LoadingOverlay } from '@/components/LoadingOverlay';
 
 
 interface props {
@@ -42,6 +43,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Stickies: NextPage<props> = ({ result }) => {
   const [currCards, setCurrCards] = useState<ICard[]>([])
   const [showModal, setShowModal] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState({
     state: false,
     message: '',
@@ -58,7 +60,9 @@ const Stickies: NextPage<props> = ({ result }) => {
   }
 
   const addCardAsync = async (task: ICardInput) => {
+    setLoading(true)
     const data = await cardsService.addCardAsync(task);
+    setLoading(false)
     if (data.success === true) {
       setCurrCards([...currCards, data.data])
       toggleMessage(data.message, 'info')
@@ -70,7 +74,9 @@ const Stickies: NextPage<props> = ({ result }) => {
   }
 
   const updateCardAsync = async (obj: any) => {
+    setLoading(true)
     const data = await cardsService.updateCardAsync(obj.card, obj.id);
+    setLoading(false)
     if (data.success === true) {
       const updatedCardList = currCards.map((card) => {
         if (card.id === data.data.id) {
@@ -88,7 +94,9 @@ const Stickies: NextPage<props> = ({ result }) => {
 
   }
   const deleteCardAsync = async (card_id: string) => {
+    setLoading(true)
     const data = await cardsService.deleteCardAsync(card_id);
+    setLoading(false)
     if (data.success === true) {
       setCurrCards(currCards.filter((e) => e.id !== data.data.id))
       toggleMessage(data.message, 'info')
@@ -116,12 +124,14 @@ const Stickies: NextPage<props> = ({ result }) => {
         <meta name="description" content="Simple and blazing fast note taking app that synchronize across your devices." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
-        {alertMessage.state && <AlertMessage type={alertMessage.type} message={alertMessage.message} />}
-        <Cards cards={currCards} updateCardAsyncProp={updateCardAsync} handleCardDeleteAsync={deleteCardAsync} />
-        {showModal && <AddCardModal setShowModal={(e) => setShowModal(e)} addCardAsync={addCardAsync} />}
-        <RightFloatingBtn onClick={() => setShowModal(true)} />
-      </div>
+      {loading ? (<LoadingOverlay size={35} />) : (
+        <div>
+          {alertMessage.state && <AlertMessage type={alertMessage.type} message={alertMessage.message} />}
+          <Cards cards={currCards} updateCardAsyncProp={updateCardAsync} handleCardDeleteAsync={deleteCardAsync} />
+          {showModal && <AddCardModal setShowModal={(e) => setShowModal(e)} addCardAsync={addCardAsync} />}
+          <RightFloatingBtn onClick={() => setShowModal(true)} />
+        </div>
+      )}
     </>
   )
 }
