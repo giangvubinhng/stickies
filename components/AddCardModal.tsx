@@ -44,7 +44,7 @@ const AddCardModal: NextPage<props> = ({ setShowModal, currentCard, cardId, addC
   }
 
   // handle input change
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const target = e.target as HTMLInputElement
     if (target.name === "header") {
       setTask({ ...task, header: target.value })
@@ -127,7 +127,7 @@ const AddCardModal: NextPage<props> = ({ setShowModal, currentCard, cardId, addC
                   return (<div className="w-full max-w-sm border-b-2 mt-2" key={ind} data-key={ind}>
                     <button onClick={() => handleRemoveSingleTask(ind)}><TiDelete /></button>
                     <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-2" id={"title" + ind} name="title" type="text" value={elem.title} onChange={handleInputChange} placeholder="Task Name" />
-                    <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-2" id={"description" + ind} type="text" name="description" value={elem.description} onChange={handleInputChange} placeholder="Description (optional)" />
+                    <textarea className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-2" id={"description" + ind} name="description" value={elem.description} onChange={handleInputChange} placeholder="Description (optional)" />
                   </div>)
 
                 })}
