@@ -18,7 +18,7 @@ const SingleList: NextPage<props> = ({ task }) => {
             <p className="text-sm font-medium text-gray-900 dark:text-white">
               {task.title || ''}
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400 whitespace-pre">
+            <p className="text-sm text-gray-500 dark:text-gray-400 break-words whitespace-pre-wrap">
               {task.description || ''}
             </p>
           </>
