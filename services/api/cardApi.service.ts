@@ -1,6 +1,7 @@
 import { Card, PrismaClient, Task } from '@prisma/client';
 import { ServerResponse } from '@/interfaces/api/IAPI'
 import { ICard, ICardInput, ISingleList } from '@/interfaces/ICard';
+import crypto from 'crypto';
 
 const prisma = new PrismaClient()
 
@@ -313,6 +314,33 @@ async function removeCard(card_id: string) {
     }
   }
 
+}
+
+//Encrypting text
+
+function encrypt(text: string) {
+  //generate encryption key using the secret.
+  crypto.scrypt(process.env.USER_DATA_ENCRYPT_SECRET || 'someRandomSecret', 'salt', 24, (err, key) => {
+    if (err) throw err;
+    //create an initialization vector
+    crypto.randomFill(new Uint8Array(16), (err, iv) => {
+      if (err) throw err;
+      const cipher = crypto.createCipheriv(process.env.USER_DATA_ENCRYPT_ALGO || 'aes-192-cbc', key, iv);
+      let encrypted = '';
+      cipher.setEncoding('hex');
+      cipher.on('data', (chunk) => encrypted += chunk);
+      cipher.on('end', () => console.log(encrypted))
+      cipher.on('error', (err) => console.log(err))
+      cipher.write(text);
+      cipher.end();
+    });
+  });
+}
+
+function encryptCard(card: ICardInput): ICardInput {
+
+
+  return card;
 }
 
 function mapToServerResponse(card: Card, tasks: Task[]): ICard {

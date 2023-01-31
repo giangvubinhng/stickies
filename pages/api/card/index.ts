@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const session = await unstable_getServerSession(req, res, authOptions);
   // If user is not authenticated
   if (!session) {
-    res.status(401).json({ message: "You mus be logged in", success: false })
+    res.status(401).json({ message: "You must be logged in", success: false })
     return;
   }
   else {
