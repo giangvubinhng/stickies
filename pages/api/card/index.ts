@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Methods from '@/enums/methods'
-import { unstable_getServerSession } from "next-auth/next"
+import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
 import cardApiService from '@/services/api/cardApi.service'
 import { ServerResponse } from '@/interfaces/api/IAPI';
@@ -18,7 +18,7 @@ async function handlePost(user_email: string | undefined | null, card: ICardInpu
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
   // If user is not authenticated
   if (!session) {
     res.status(401).json({ message: "You mus be logged in", success: false })

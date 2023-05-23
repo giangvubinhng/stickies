@@ -8,11 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "migrate:dev": "yarn dotenv -e .env.local prisma migrate dev",
-    "db:push": "yarn dotenv -e .env.local --prisma db push",
-    "migrate:reset": "yarn dotenv -e .env.local -- prisma migrate reset",
-    "db:seed": "yarn dotenv -e .env.local -- prisma db seed",
-    "prisma:generate": "yarn dotenv -e .env.local  -- prisma generate",
-    "prisma:studio": "yarn dotenv -e .env.local -- prisma studio ",
+    "db:push": "yarn dotenv -e .env.local prisma db push",
+    "migrate:reset": "yarn dotenv -e .env.local prisma migrate reset",
+    "db:seed": "yarn dotenv -e .env.local prisma db seed",
+    "prisma:generate": "yarn dotenv -e .env.local  prisma generate",
+    "prisma:studio": "yarn dotenv -e .env.local prisma studio ",
     "production:build": "yarn prisma generate && yarn prisma migrate deploy && next build"
   },
   "dependencies": {
